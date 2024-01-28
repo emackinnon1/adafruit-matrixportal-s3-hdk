@@ -32,6 +32,7 @@ int display_initialize() {
                          HUB75_I2S_CFG::FM6126A,  // driver chip
                          true,                    // double-buffering
                          HUB75_I2S_CFG::HZ_10M);
+  mxconfig.clkphase = false;
   _matrix = new MatrixPanel_I2S_DMA(mxconfig);
 
   // Set brightness and clear the screen.

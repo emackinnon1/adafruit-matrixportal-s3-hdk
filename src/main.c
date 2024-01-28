@@ -11,6 +11,7 @@
 #include "remote.h"
 #include "sdkconfig.h"
 #include "wifi.h"
+#include "secrets.h"
 
 static const char* TAG = "main";
 
