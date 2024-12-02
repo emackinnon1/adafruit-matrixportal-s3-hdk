@@ -30,7 +30,7 @@ the variables with your desired information:
 TIDBYT_WIFI_SSID='Your WiFi' \
 TIDBYT_WIFI_PASSWORD='super-secret' \
 TIDBYT_REMOTE_URL='http://192.168.10.10:8080/api/v1/preview.webp' \
-pio run --environment tidbyt --target upload
+ pio run --environment adafruit_matrixportal_esp32s3 --target upload
 ```
 
 ## Monitoring Logs
