@@ -1,6 +1,6 @@
 #define TIDBYT_WIFI_SSID "Who pooped in the pool"
 #define TIDBYT_WIFI_PASSWORD "Sonoffinan1!"
-#define TIDBYT_REMOTE_URL "https://axilla.netlify.app/?applet=https://raw.githubusercontent.com/tidbyt/community/main/apps/eplscores/eplscores.star&selectedTeam=ARS&rotationSpeed=5&displayType=colors&pregameDisplay=record&displayTop=league&displayTimeColor=%23FFA500&format=webp&output=image"
+// #define TIDBYT_REMOTE_URL "https://axilla.netlify.app/?applet=https://raw.githubusercontent.com/tidbyt/community/main/apps/eplscores/eplscores.star&selectedTeam=ARS&rotationSpeed=5&displayType=colors&pregameDisplay=record&displayTop=league&displayTimeColor=%23FFA500&format=webp&output=image"
 
 // https://axilla.netlify.app/?applet=https://raw.githubusercontent.com/tidbyt/community/main/apps/digitalrain/digital_rain.star&color=green&char_size=normal&format=webp&output=image
 // https://axilla.netlify.app/?applet=https://raw.githubusercontent.com/tidbyt/community/main/apps/martamap/marta_map.star&station=Five+Points&arrivals=false&scroll=true&text_color=%23aaaaaa&orientation=false&format=webp&output=image
