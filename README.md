@@ -48,3 +48,7 @@ pio run --target reset
 
 [1]: https://github.com/tidbyt/pixlet
 [2]: https://docs.platformio.org/en/latest/core/installation/index.html
+
+
+Add applets to the APPLETS char array in main.c to upload.
+When uploading, use PlatformIO's VS Code extension. Try different cables if the upload does not find the USB port.
