@@ -15,6 +15,9 @@
 
 static const char* TAG = "main";
 
+
+// TODO: make a function to concatenate the url here
+// https://stackoverflow.com/questions/2218290/concatenate-char-array-in-c
 char * APPLETS[] = {
   "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=aurora&format=webp&output=image",
   "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=countdown&event=Anniversary&event_time=2025-11-06T07%3A00%3A09.000Z&eventColor=%23FFA500&format=webp&output=image",
