@@ -29,6 +29,7 @@ the variables with your desired information:
 ```
 TIDBYT_WIFI_SSID='Your WiFi' \
 TIDBYT_WIFI_PASSWORD='super-secret' \
+const char* BASE_URL = "http://XX.X.X.XXX:3000" \
 TIDBYT_REMOTE_URL='http://192.168.10.10:8080/api/v1/preview.webp' \
  pio run --environment adafruit_matrixportal_esp32s3 --target upload
 ```

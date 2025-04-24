@@ -15,37 +15,62 @@
 
 static const char* TAG = "main";
 
+// Define the base URL that can be easily changed
+// const char* BASE_URL = "http://XX.X.X.XXX:3000";
+const char* FORMAT_SUFFIX = "&format=webp&output=image";
 
-// TODO: make a function to concatenate the url here
-// https://stackoverflow.com/questions/2218290/concatenate-char-array-in-c
-char * APPLETS[] = {
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=aurora&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=countdown&event=Anniversary&event_time=2025-11-06T07%3A00%3A09.000Z&eventColor=%23FFA500&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=date_progress&show_day=true&show_month=true&show_year=true&show_labels=true&show_values=true&color_year=%230ff&color_month=%230f0&color_day=%23f00&start_hour=0&start_minute=0&end_hour=0&end_minute=0&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=days_to_xmas&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=digital_rain&color=green&char_size=smaller&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=dvdlogo&show_day=true&show_month=true&show_year=true&show_labels=true&show_values=true&color_year=%230ff&color_month=%230f0&color_day=%23f00&start_hour=0&start_minute=0&end_hour=0&end_minute=0&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=eplscores&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=marta&station=Five+Points&arrivals=false&scroll=true&text_color=%23aaaaaa&orientation=false&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=mvv&stop=%7B%22display%22%3A%22Hauptbahnhof%22%2C%22text%22%3A%22Hauptbahnhof%22%2C%22value%22%3A%22de%3A09162%3A6%22%7D&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=nws_forecast&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=planetarium_clock&furthest_planet=8&mode=clock&show_date=true&format=webp&output=image",
-  // "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=soccermens&leagueOptions=ger.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=1500&is_us_date_format=true&day_range=true&days_back=1&days_forward=1&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=soccermens&leagueOptions=ger.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=3000&is_24_hour_format=true&is_us_date_format=true&format=webp&output=image",
-  // "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=soccermens&leagueOptions=esp.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=1500&is_us_date_format=true&day_range=true&days_back=1&days_forward=1&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=soccermens&leagueOptions=esp.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=3000&is_24_hour_format=true&is_us_date_format=true&format=webp&output=image",
-  // "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=soccermens&leagueOptions=eng.fa&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=1500&is_us_date_format=true&day_range=true&days_back=1&days_forward=1&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=soccermens&leagueOptions=eng.fa&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=3000&is_24_hour_format=true&is_us_date_format=true&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=soccer_tables&isplayOptions=Rank&LeagueOptions=eng.1&ColorOptions=black&speed=3&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=soccer_tables&isplayOptions=Rank&LeagueOptions=esp.1&ColorOptions=black&speed=3&format=webp&output=image",
-  "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=soccer_tables&isplayOptions=Rank&LeagueOptions=ger.1&ColorOptions=black&speed=3&format=webp&output=image",
-  // "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=yearprogress&color=%2347a&format=webp&output=image"
-  // DISABLE "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=divbyt&format=webp&output=image",
-  // DISABLE "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=starfield&?background_color=%23000&star_color=%23FFF&star_count=10&star_speed=0.5&star_tail_length=1.5&use_custom_star_colors=false&format=webp&output=image",
-  // "https://teal-sprinkles-cd1d0e.netlify.app/?fileName=sunrisesunset&items_to_display=both&location="%7B"lat"%3A"39.742"%2C"lng"%3A"-104.992"%2C"locality"%3A"Denver%2C+CO"%2C"timezone"%3A"America%2FDenver"%7D"&format=webp&output=image"
+// URL concatenation function
+char* concat_url(const char* base, const char* path) {
+    size_t len = strlen(base) + strlen(path) + 1; // +1 for null terminator
+    char* result = malloc(len);
+    if (result) {
+        strcpy(result, base);
+        strcat(result, path);
+    }
+    return result;
+}
+
+const char* APPLET_PATHS[] = {
+  "/?fileName=aurora",
+  "/?fileName=countdown&event=Anniversary&event_time=2025-11-06T07%3A00%3A09.000Z&eventColor=%23FFA500",
+  "/?fileName=date_progress&show_day=true&show_month=true&show_year=true&show_labels=true&show_values=true&color_year=%230ff&color_month=%230f0&color_day=%23f00&start_hour=0&start_minute=0&end_hour=0&end_minute=0",
+  "/?fileName=days_to_xmas",
+  "/?fileName=digital_rain&color=green&char_size=smaller",
+  "/?fileName=dvdlogo&show_day=true&show_month=true&show_year=true&show_labels=true&show_values=true&color_year=%230ff&color_month=%230f0&color_day=%23f00&start_hour=0&start_minute=0&end_hour=0&end_minute=0",
+  "/?fileName=eplscores",
+  "/?fileName=marta&station=Five+Points&arrivals=false&scroll=true&text_color=%23aaaaaa&orientation=false",
+  "/?fileName=mvv&stop=%7B%22display%22%3A%22Hauptbahnhof%22%2C%22text%22%3A%22Hauptbahnhof%22%2C%22value%22%3A%22de%3A09162%3A6%22%7D",
+  "/?fileName=nws_forecast",
+  "/?fileName=planetarium_clock&furthest_planet=8&mode=clock&show_date=true",
+  "/?fileName=soccermens&leagueOptions=ger.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=3000&is_24_hour_format=true&is_us_date_format=true",
+  "/?fileName=soccermens&leagueOptions=esp.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=3000&is_24_hour_format=true&is_us_date_format=true",
+  "/?fileName=soccermens&leagueOptions=eng.fa&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=3000&is_24_hour_format=true&is_us_date_format=true",
+  "/?fileName=soccer_tables&isplayOptions=Rank&LeagueOptions=eng.1&ColorOptions=black&speed=3",
+  "/?fileName=soccer_tables&isplayOptions=Rank&LeagueOptions=esp.1&ColorOptions=black&speed=3",
+  "/?fileName=soccer_tables&isplayOptions=Rank&LeagueOptions=ger.1&ColorOptions=black&speed=3",
+  "/?fileName=yearprogress&color=%2347a"
 };
 
-char* format_output = "&format=webp&output=image";
+char * APPLETS[] = {};
+
+//   // DISABLE "?fileName=soccermens&leagueOptions=ger.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=1500&is_us_date_format=true&day_range=true&days_back=1&days_forward=1&format=webp&output=image",
+//   // DISABLE "?fileName=soccermens&leagueOptions=esp.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=1500&is_us_date_format=true&day_range=true&days_back=1&days_forward=1&format=webp&output=image",
+//   // DISABLE "?fileName=soccermens&leagueOptions=eng.fa&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=1500&is_us_date_format=true&day_range=true&days_back=1&days_forward=1&format=webp&output=image",
+//   // DISABLE "?fileName=divbyt&format=webp&output=image",
+//   // DISABLE "?fileName=starfield&?background_color=%23000&star_color=%23FFF&star_count=10&star_speed=0.5&star_tail_length=1.5&use_custom_star_colors=false&format=webp&output=image",
+//   // BROKEN "?fileName=sunrisesunset&items_to_display=both&location="%7B"lat"%3A"39.742"%2C"lng"%3A"-104.992"%2C"locality"%3A"Denver%2C+CO"%2C"timezone"%3A"America%2FDenver"%7D"&format=webp&output=image"
+
+// Function to build a full URL with base, path and format suffix
+char* build_url(const char* path) {
+  size_t len = strlen(BASE_URL) + strlen(path) + strlen(FORMAT_SUFFIX) + 1;
+  char* result = malloc(len);
+  if (result) {
+      strcpy(result, BASE_URL);
+      strcat(result, path);
+      strcat(result, FORMAT_SUFFIX);
+  }
+  return result;
+}
 
 void app_main(void) {
   ESP_LOGI(TAG, "Hello world!");
@@ -81,22 +106,45 @@ void app_main(void) {
       printf("%s\n",APPLETS[i]);
   }
 
-  while (true) {
-    for (int i=0; i<sizeof(APPLETS)/sizeof(APPLETS[0]); i++) {
-      uint8_t* webp;
-      size_t len;
-      if (remote_get(APPLETS[i], &webp, &len)) {
-        ESP_LOGE(TAG, "Failed to get webp");
-      } else {
-        ESP_LOGI(TAG, "Updated webp (%d bytes)", len);
-        gfx_update(webp, len);
-        free(webp);
-      }
+  // while (true) {
+  //   for (int i=0; i<sizeof(APPLETS)/sizeof(APPLETS[0]); i++) {
+  //     uint8_t* webp;
+  //     size_t len;
+  //     if (remote_get(APPLETS[i], &webp, &len)) {
+  //       ESP_LOGE(TAG, "Failed to get webp");
+  //     } else {
+  //       ESP_LOGI(TAG, "Updated webp (%d bytes)", len);
+  //       gfx_update(webp, len);
+  //       free(webp);
+  //     }
 
-      // ESP_LOGI(TAG, "Count: %d", i);
-      vTaskDelay(pdMS_TO_TICKS(30000));
+  //     // ESP_LOGI(TAG, "Count: %d", i);
+  //     vTaskDelay(pdMS_TO_TICKS(30000));
+  //   }
+  // }
+  while (true) {
+    for (int i = 0; i < sizeof(APPLET_PATHS)/sizeof(APPLET_PATHS[0]); i++) {
+        char* full_url = build_url(APPLET_PATHS[i]);
+        if (full_url) {
+            ESP_LOGI(TAG, "Fetching: %s", full_url);
+            
+            uint8_t* webp;
+            size_t len;
+            if (remote_get(full_url, &webp, &len)) {
+                ESP_LOGE(TAG, "Failed to get webp");
+            } else {
+                ESP_LOGI(TAG, "Updated webp (%d bytes)", len);
+                gfx_update(webp, len);
+                free(webp);
+            }
+            
+            free(full_url);
+            vTaskDelay(pdMS_TO_TICKS(30000));
+        } else {
+            ESP_LOGE(TAG, "Failed to allocate memory for URL");
+        }
+      }
     }
-  }
   // for (;;) {
   //   uint8_t* webp;
   //   size_t len;
