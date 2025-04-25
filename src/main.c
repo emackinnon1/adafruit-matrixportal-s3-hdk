@@ -30,35 +30,7 @@ char* concat_url(const char* base, const char* path) {
     return result;
 }
 
-const char* APPLET_PATHS[] = {
-  "/?fileName=aurora",
-  "/?fileName=countdown&event=Anniversary&event_time=2025-11-06T07%3A00%3A09.000Z&eventColor=%23FFA500",
-  "/?fileName=date_progress&show_day=true&show_month=true&show_year=true&show_labels=true&show_values=true&color_year=%230ff&color_month=%230f0&color_day=%23f00&start_hour=0&start_minute=0&end_hour=0&end_minute=0",
-  "/?fileName=days_to_xmas",
-  "/?fileName=digital_rain&color=green&char_size=smaller",
-  "/?fileName=dvdlogo&show_day=true&show_month=true&show_year=true&show_labels=true&show_values=true&color_year=%230ff&color_month=%230f0&color_day=%23f00&start_hour=0&start_minute=0&end_hour=0&end_minute=0",
-  "/?fileName=eplscores",
-  "/?fileName=marta&station=Five+Points&arrivals=false&scroll=true&text_color=%23aaaaaa&orientation=false",
-  "/?fileName=mvv&stop=%7B%22display%22%3A%22Hauptbahnhof%22%2C%22text%22%3A%22Hauptbahnhof%22%2C%22value%22%3A%22de%3A09162%3A6%22%7D",
-  "/?fileName=nws_forecast",
-  "/?fileName=planetarium_clock&furthest_planet=8&mode=clock&show_date=true",
-  "/?fileName=soccermens&leagueOptions=ger.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=3000&is_24_hour_format=true&is_us_date_format=true",
-  "/?fileName=soccermens&leagueOptions=esp.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=3000&is_24_hour_format=true&is_us_date_format=true",
-  "/?fileName=soccermens&leagueOptions=eng.fa&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=3000&is_24_hour_format=true&is_us_date_format=true",
-  "/?fileName=soccer_tables&isplayOptions=Rank&LeagueOptions=eng.1&ColorOptions=black&speed=3",
-  "/?fileName=soccer_tables&isplayOptions=Rank&LeagueOptions=esp.1&ColorOptions=black&speed=3",
-  "/?fileName=soccer_tables&isplayOptions=Rank&LeagueOptions=ger.1&ColorOptions=black&speed=3",
-  "/?fileName=yearprogress&color=%2347a"
-};
-
 char * APPLETS[] = {};
-
-//   // DISABLE "?fileName=soccermens&leagueOptions=ger.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=1500&is_us_date_format=true&day_range=true&days_back=1&days_forward=1&format=webp&output=image",
-//   // DISABLE "?fileName=soccermens&leagueOptions=esp.1&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=1500&is_us_date_format=true&day_range=true&days_back=1&days_forward=1&format=webp&output=image",
-//   // DISABLE "?fileName=soccermens&leagueOptions=eng.fa&team_sequence=home&displayType=colors&displayTimeColor=%23fff&displaySpeed=1500&is_us_date_format=true&day_range=true&days_back=1&days_forward=1&format=webp&output=image",
-//   // DISABLE "?fileName=divbyt&format=webp&output=image",
-//   // DISABLE "?fileName=starfield&?background_color=%23000&star_color=%23FFF&star_count=10&star_speed=0.5&star_tail_length=1.5&use_custom_star_colors=false&format=webp&output=image",
-//   // BROKEN "?fileName=sunrisesunset&items_to_display=both&location="%7B"lat"%3A"39.742"%2C"lng"%3A"-104.992"%2C"locality"%3A"Denver%2C+CO"%2C"timezone"%3A"America%2FDenver"%7D"&format=webp&output=image"
 
 // Function to build a full URL with base, path and format suffix
 char* build_url(const char* path) {
@@ -102,26 +74,6 @@ void app_main(void) {
              mac[2], mac[3], mac[4], mac[5]);
   }
 
-  for (int i=0; i<sizeof(APPLETS)/sizeof(APPLETS[0]); i++){
-      printf("%s\n",APPLETS[i]);
-  }
-
-  // while (true) {
-  //   for (int i=0; i<sizeof(APPLETS)/sizeof(APPLETS[0]); i++) {
-  //     uint8_t* webp;
-  //     size_t len;
-  //     if (remote_get(APPLETS[i], &webp, &len)) {
-  //       ESP_LOGE(TAG, "Failed to get webp");
-  //     } else {
-  //       ESP_LOGI(TAG, "Updated webp (%d bytes)", len);
-  //       gfx_update(webp, len);
-  //       free(webp);
-  //     }
-
-  //     // ESP_LOGI(TAG, "Count: %d", i);
-  //     vTaskDelay(pdMS_TO_TICKS(30000));
-  //   }
-  // }
   while (true) {
     for (int i = 0; i < sizeof(APPLET_PATHS)/sizeof(APPLET_PATHS[0]); i++) {
         char* full_url = build_url(APPLET_PATHS[i]);
@@ -139,23 +91,10 @@ void app_main(void) {
             }
             
             free(full_url);
-            vTaskDelay(pdMS_TO_TICKS(30000));
+            vTaskDelay(pdMS_TO_TICKS(12000));
         } else {
             ESP_LOGE(TAG, "Failed to allocate memory for URL");
         }
       }
     }
-  // for (;;) {
-  //   uint8_t* webp;
-  //   size_t len;
-  //   if (remote_get(TIDBYT_REMOTE_URL, &webp, &len)) {
-  //     ESP_LOGE(TAG, "Failed to get webp");
-  //   } else {
-  //     ESP_LOGI(TAG, "Updated webp (%d bytes)", len);
-  //     gfx_update(webp, len);
-  //     free(webp);
-  //   }
-
-  //   vTaskDelay(pdMS_TO_TICKS(10000));
-  // }
 }
