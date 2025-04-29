@@ -15,8 +15,6 @@
 
 static const char* TAG = "main";
 
-// Define the base URL that can be easily changed
-// const char* BASE_URL = "http://XX.X.X.XXX:3000";
 const char* FORMAT_SUFFIX = "&format=webp&output=image";
 
 // URL concatenation function
