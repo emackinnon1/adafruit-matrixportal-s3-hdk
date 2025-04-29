@@ -75,8 +75,8 @@ void app_main(void) {
   }
 
   while (true) {
-    for (int i = 0; i < sizeof(APPLET_PATHS)/sizeof(APPLET_PATHS[0]); i++) {
-        char* full_url = build_url(APPLET_PATHS[i]);
+    for (int i = 0; i < sizeof(APPLET_PARAMS)/sizeof(APPLET_PARAMS[0]); i++) {
+        char* full_url = build_url(APPLET_PARAMS[i]);
         if (full_url) {
             ESP_LOGI(TAG, "Fetching: %s", full_url);
             
